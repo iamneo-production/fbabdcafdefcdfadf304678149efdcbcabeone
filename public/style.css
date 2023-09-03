@@ -1,6 +1,5 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Radio+Canada:wght@400;500;600;700&display=swap");
-
 body {
     background-image: url("https://cdn.pixabay.com/photo/2018/03/17/19/36/connection-3234929_1280.jpg");
     background-size: cover;
@@ -8,29 +7,22 @@ body {
     background-position: center center;
     font-family: "Radio Canada", sans-serif;
   }
-  /* Header Styling */
 header {
   text-align: center;
   color: white;
   text-shadow: 1px 1px 3px #000;
   font-size: 50px;
 }
-
-/* Box Styling */
 .box {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 35px;
 }
-
-/* Row Styling */
 .row {
   display: flex;
   justify-content: center;
 }
-
-/* Button Styling */
 .btn {
   border: 2px solid #fff;
   border-radius: 10px;
@@ -44,20 +36,14 @@ header {
   text-shadow: 1px 1px 3px #fff;
   cursor: pointer;
 }
-
-/* Button Hover Styling */
 .btn:hover {
   background-color: rgba(255, 255, 255, 1);
   cursor: pointer;
 }
-
-/* Disabled Button Styling */
 .btn:disabled {
   color: black;
   cursor: not-allowed;
 }
-
-/* Result Container Styling */
 .result-container {
   background-color: rgba(255, 255, 255, 0.8);
   border: 2px solid #fff;
@@ -65,26 +51,19 @@ header {
   max-width: 200px;
   margin: 20px auto;
 }
-
-/* Result Styling */
 .result {
   color: white;
   text-shadow: 1px 1px 3px #000;
   font-size: 25px;
 }
-
-/* Reset Styling */
 .reset-section {
   text-align: center;
 }
-
-/* Reset Button Styling */
 #reset-btn {
   border: 2px solid black;
   color: black;
   cursor: pointer;
 }
-
 #reset-btn:hover {
   background-color: black;
   color: white;
