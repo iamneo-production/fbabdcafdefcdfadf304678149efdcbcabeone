@@ -1,64 +1,84 @@
-// Initial game state
-let cells = ['', '', '', '', '', '', '', '', ''];
-let currentPlayer = 'X';
-let result = document.querySelector('.result');
-let btns = document.querySelectorAll('.btn');
-let conditions = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6]
-];
+// Define constants for player symbols
+const PLAYER_X = 'X';
+const PLAYER_O = 'O';
 
-// Function to handle player moves
-const ticTacToe = (element, index) => {
-    // Your game logic here
+// Initialize game variables
+let currentPlayer = PLAYER_X;
+let isGameActive = true;
 
-    /*
-    **Part 1: Winning Conditions (Add your code here)**
+// Get all the buttons (grid cells)
+const buttons = document.querySelectorAll('.btn');
 
-    1. Implement the logic to check for winning conditions using the 'conditions' array.
-    2. Display a winning message in the 'result' element when a player wins.
-    3. Disable all buttons after a win.
-    */
+// Get the result container and reset button
+const resultContainer = document.querySelector('.result');
+const resetButton = document.getElementById('reset-btn');
 
-    // Your code to update the game state and check for a win
-    // ...
+// Function to handle button click
+function handleButtonClick(event) {
+    const button = event.target;
 
-    // Your code to display the current player's turn
-    // ...
+    // Check if the button is empty and the game is active
+    if (button.textContent === '' && isGameActive) {
+        button.textContent = currentPlayer;
+        button.classList.add('filled');
 
-    // Your code to handle button and cell interactions
-    // ...
-};
+        // Check for a win or draw
+        if (checkWin() || checkDraw()) {
+            isGameActive = false;
+            resultContainer.textContent = isGameActive ? `Player ${currentPlayer}'s Turn` : 'Game Over';
+        } else {
+            // Toggle players
+            currentPlayer = currentPlayer === PLAYER_X ? PLAYER_O : PLAYER_X;
+            resultContainer.textContent = `Player ${currentPlayer}'s Turn`;
+        }
+    }
+}
 
-    /*
-    **Part 2: Reset Function (Add your code here)**
+// Function to check for a win
+function checkWin() {
+    const winPatterns = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
+        [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
+        [0, 4, 8], [2, 4, 6] // Diagonals
+    ];
 
-    1. Implement a new function that resets the game to its initial state.
-    2. Ensure the 'cells', 'btns', and 'currentPlayer' variables are reset.
-    3. Update the 'result' element to indicate the current player's turn.
-    4. Re-enable all buttons for a new game.
-    */
+    for (const pattern of winPatterns) {
+        const [a, b, c] = pattern;
+        if (buttons[a].textContent && buttons[a].textContent === buttons[b].textContent && buttons[a].textContent === buttons[c].textContent) {
+            resultContainer.textContent = `Player ${currentPlayer} Wins!`;
+            return true;
+        }
+    }
+
+    return false;
+}
+
+// Function to check for a draw
+function checkDraw() {
+    const isDraw = [...buttons].every(button => button.textContent !== '');
+    if (isDraw) {
+        resultContainer.textContent = 'It\'s a Draw!';
+        return true;
+    }
+    return false;
+}
 
 // Function to reset the game
-const resetGame = () => {
-    // Your code to reset the game state
-    // ...
+function resetGame() {
+    buttons.forEach(button => {
+        button.textContent = '';
+        button.classList.remove('filled');
+    });
 
-    // Your code to update the 'result' element
-    // ...
+    currentPlayer = PLAYER_X;
+    isGameActive = true;
+    resultContainer.textContent = `Player ${currentPlayer}'s Turn`;
+}
 
-    // Your code to re-enable buttons
-    // ...
-};
-
-btns.forEach((btn, i) => {
-    btn.addEventListener('click', () => ticTacToe(btn, i));
+// Add click event listeners to the buttons
+buttons.forEach(button => {
+    button.addEventListener('click', handleButtonClick);
 });
 
-document.querySelector('#reset').addEventListener('click', resetGame);
+// Add click event listener to the reset button
+resetButton.addEventListener('click', resetGame);
